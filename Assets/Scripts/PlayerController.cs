@@ -5,6 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    public Vector3 start;
+    public Vector3 offset;
+    [Header("Prefabs")]
+    public GameObject bomb;
+    [Header("Placeholder")]
+    public Transform bombsHolder;
+
     float MovementSpeed = 5f;
 
     private Vector3 up = Vector3.zero,
@@ -41,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
         transform.localEulerAngles = currentDirection;
 
+        if (Input.GetKey(KeyCode.F))
+        {
+            GameObject newBomb = Instantiate<GameObject>(bomb, new Vector3(start.x + ((int)transform.position.x) + offset.x, start.y + offset.y, start.z + ((int)transform.position.z) + offset.z), Quaternion.identity); ;
+            newBomb.transform.parent = bombsHolder;
+        }
         if (isMoving)
         {
             transform.Translate(Vector3.forward * MovementSpeed * Time.deltaTime);
