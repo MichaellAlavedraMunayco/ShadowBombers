@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
     private Transform myTransform;
     // private Animator animator;
 
+    protected Joystick joystick;
+    protected DropBombJoystick dropBombJoystick;
+
+    protected bool droppingBomb = false;
+
     // Use this for initialization
     void Start()
     {
@@ -36,6 +41,8 @@ public class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         myTransform = transform;
         // animator = myTransform.Find("PlayerModel").GetComponent<Animator>();
+        joystick = FindObjectOfType<Joystick>();
+        dropBombJoystick = FindObjectOfType<DropBombJoystick>();
     }
 
     // Update is called once per frame
@@ -69,6 +76,15 @@ public class Player : MonoBehaviour
     /// </summary>
     private void UpdatePlayer1Movement()
     {
+        rigidBody.velocity = new Vector3(joystick.Horizontal * moveSpeed, rigidBody.velocity.y, joystick.Vertical * moveSpeed);
+
+        if (!droppingBomb && dropBombJoystick.Pressed)
+        {
+            DropBomb();
+            droppingBomb = true;
+        }
+        if (droppingBomb && !dropBombJoystick.Pressed) { droppingBomb = false; }
+
         if (Input.GetKey(KeyCode.W))
         { //Up movement
             rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, moveSpeed);
