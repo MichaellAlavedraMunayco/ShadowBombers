@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,37 +7,27 @@ public class GlobalStateManager : MonoBehaviour
 {
     public List<GameObject> Players = new List<GameObject>();
 
-    private int deadPlayers = 0;
-    private int deadPlayerNumber = -1;
+    List<int> PlayerScores = new List<int>();
+    public List<Text> Texts = new List<Text>();
 
-    public void PlayerDied(int playerNumber)
+    void Start()
     {
-        deadPlayers++;
-
-        if (deadPlayers == 1)
-        {
-            deadPlayerNumber = playerNumber;
-            Invoke("CheckPlayersDeath", .3f);
-        }
+        PlayerScores.Add(10);
+        PlayerScores.Add(10);
+        PlayerScores.Add(10);
+        PlayerScores.Add(10);
     }
 
-    void CheckPlayersDeath()
+    public bool PlayerDied(int playerNumber)
     {
-        if (deadPlayers == 1)
-        { //Single dead player, he's the winner
-
-            if (deadPlayerNumber == 1)
-            { //P1 dead, P2 is the winner
-                Debug.Log("Player 2 is the winner!");
-            }
-            else
-            { //P2 dead, P1 is the winner
-                Debug.Log("Player 1 is the winner!");
-            }
-        }
-        else
-        {  //Multiple dead players, it's a draw
-            Debug.Log("The game ended in a draw!");
-        }
+        PlayerScores[playerNumber] = PlayerScores[playerNumber] - 1 < 0 ? 0 : PlayerScores[playerNumber] - 1;
+        Texts[playerNumber].text = PlayerScores[playerNumber].ToString();
+        return PlayerScores[playerNumber] == 0;
     }
+    public void PlayerLife(int playerNumber)
+    {
+        PlayerScores[playerNumber] = PlayerScores[playerNumber] + 1;
+        Texts[playerNumber].text = PlayerScores[playerNumber].ToString();
+    }
+
 }

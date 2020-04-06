@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 11430220}
   - component: {fileID: 5407224}
   - component: {fileID: 8248646}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 426346}
   - component: {fileID: 19868156}
   - component: {fileID: 19977312}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4891,7 +4891,7 @@ GameObject:
   - component: {fileID: 454698}
   - component: {fileID: 6558968}
   - component: {fileID: 11478302}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
