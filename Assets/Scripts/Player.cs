@@ -32,12 +32,26 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        playerRigidBody.velocity = new Vector3(
-            moveJoystick.Horizontal * moveSpeed,
-            playerRigidBody.velocity.y,
-            moveJoystick.Vertical * moveSpeed);
-
-        playerTransform.rotation = Quaternion.Euler(0, 0, 0);
+        if (Mathf.Round(moveJoystick.Vertical) == 1) // top
+        {
+            playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, playerRigidBody.velocity.y, moveSpeed);
+            playerTransform.rotation = Quaternion.Euler(0, 0, 0); ;
+        }
+        if (Mathf.Round(moveJoystick.Vertical) == -1) // down
+        {
+            playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, playerRigidBody.velocity.y, -moveSpeed);
+            playerTransform.rotation = Quaternion.Euler(0, 180, 0); ;
+        }
+        if (Mathf.Round(moveJoystick.Horizontal) == 1) // right
+        {
+            playerRigidBody.velocity = new Vector3(moveSpeed, playerRigidBody.velocity.y, playerRigidBody.velocity.z);
+            playerTransform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+        if (Mathf.Round(moveJoystick.Horizontal) == -1) // left
+        {
+            playerRigidBody.velocity = new Vector3(-moveSpeed, playerRigidBody.velocity.y, playerRigidBody.velocity.z);
+            playerTransform.rotation = Quaternion.Euler(0, 270, 0);
+        }
 
         if (dropBombJoystick.Pressed) { DropBomb(); }
     }
